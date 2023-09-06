@@ -6,7 +6,7 @@ type AuthLayoutProps = {
 
 const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className="flex items-center justify-center h-full">{children}</div>
+    <div className="flex h-full items-center justify-center">{children}</div>
   );
 };
 

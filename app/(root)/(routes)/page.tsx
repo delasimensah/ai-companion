@@ -1,11 +1,5 @@
-import { UserButton } from "@clerk/nextjs";
-
 const RootPage = () => {
-  return (
-    <div>
-      <UserButton afterSignOutUrl="/" />
-    </div>
-  );
+  return <div>Root Page</div>;
 };
 
 export default RootPage;
