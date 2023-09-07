@@ -7,6 +7,7 @@ import { UserButton } from "@clerk/nextjs";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/theme-toggle";
 
 const font = Poppins({
   weight: "600",
@@ -34,6 +35,7 @@ const Navbar = () => {
         <Button variant="premium" size="sm">
           Upgrade <Sparkles className="ml-2 h-4 w-4 fill-white text-white " />
         </Button>
+        <ThemeToggle />
         <UserButton />
       </div>
     </div>
