@@ -4,8 +4,10 @@ import { Nunito } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 
-import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+
 import { cn } from "@/lib/utils";
+import "./globals.css";
 
 const nunito = Nunito({
   weight: ["200", "300", "400", "500", "600", "700"],
@@ -28,6 +30,8 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         <body className={cn("bg-secondary", nunito.className)}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

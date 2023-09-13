@@ -22,8 +22,8 @@ model Companion {
   src          String
   name         String   @db.Text
   description  String
-  instructions String
-  seed         String
+  instructions String   @db.Text
+  seed         String   @db.Text
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   category     Category @relation(fields: [categoryId], references: [id])
