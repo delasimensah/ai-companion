@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FC } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,11 @@ const SubscriptionButton: FC<SubscriptionButtonProps> = ({ isPro = false }) => {
 
   const handleClick = async () => {
     try {
-      // setLoading(true);
-      // const response = await axios.get("/api/stripe");
-      // window.location.href = response.data.url;
+      setLoading(true);
+
+      const response = await axios.get("/api/paystack");
+
+      window.location.href = response.data.url;
     } catch (error) {
       toast({
         description: "Something went wrong",

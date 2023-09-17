@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-// import axios from "axios";
+import axios from "axios";
 
 import {
   Dialog,
@@ -28,11 +28,11 @@ const ProModal = () => {
 
   const handleSubscribe = async () => {
     try {
-      //setLoading(true)
-      // make request to end point which should return a url
-      // const response = await axios.get('/api/paystack');
-      // navigate to the url
-      // window.location.href = response.data.url
+      setLoading(true);
+
+      const response = await axios.get("/api/paystack");
+
+      window.location.href = response.data.url;
     } catch (error) {
       toast({
         description: "Something went wrong",

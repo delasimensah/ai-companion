@@ -1,20 +1,32 @@
-// import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 
-// import prismadb from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 
-// const DAYS_IN_MS = 86_400_000
+const DAY_IN_MS = 86_400_000;
 
 export const checkSubscription = async () => {
-  // const {userId} = auth();
+  const user = await currentUser();
 
-  // if(!userId) return false;
+  if (!user) return false;
 
-  //TODO: check prisma for subscription
-  // const userSubscription = null;
+  const userSubscription = await prismadb.userSubscription.findUnique({
+    where: {
+      paystackCustomerEmail: user.emailAddresses[0].emailAddress,
+    },
+    select: {
+      paystackSubscriptionCode: true,
+      nextPaymentDate: true,
+      paystackCustomerCode: true,
+    },
+  });
 
-  // if(!userSubscription) return false
+  if (!userSubscription) {
+    return false;
+  }
 
-  // const isValid = false
+  const isValid =
+    userSubscription.paystackSubscriptionCode &&
+    userSubscription.nextPaymentDate?.getTime()! + DAY_IN_MS > Date.now();
 
-  return false;
+  return !!isValid;
 };
