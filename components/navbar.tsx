@@ -1,5 +1,6 @@
 "use client";
 
+import { FC } from "react";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
@@ -16,13 +17,17 @@ const font = Poppins({
   subsets: ["latin"],
 });
 
-const Navbar = () => {
+type NavbarProps = {
+  isPro: boolean;
+};
+
+const Navbar: FC<NavbarProps> = ({ isPro }) => {
   const proModal = useProModal();
 
   return (
     <div className="fixed z-50 flex h-16 w-full items-center justify-between border-b border-primary/10 bg-secondary px-4 py-2">
       <div className="flex items-center">
-        <MobileSidebar />
+        <MobileSidebar isPro={isPro} />
 
         <Link href="/">
           <h1
@@ -37,9 +42,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-x-3">
-        <Button onClick={proModal.onOpen} variant="premium" size="sm">
-          Upgrade <Sparkles className="ml-2 h-4 w-4 fill-white text-white " />
-        </Button>
+        {!isPro && (
+          <Button onClick={proModal.onOpen} variant="premium" size="sm">
+            Upgrade <Sparkles className="ml-2 h-4 w-4 fill-white text-white " />
+          </Button>
+        )}
 
         <ThemeToggle />
 

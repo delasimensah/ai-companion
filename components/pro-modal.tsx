@@ -39,6 +39,7 @@ const ProModal = () => {
         variant: "destructive",
       });
     } finally {
+      setLoading(false);
     }
   };
 
