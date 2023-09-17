@@ -1,8 +1,8 @@
 import SubscriptionButton from "@/components/subscription-button";
+import { checkSubscription } from "@/lib/subscription";
 
 const SettingsPage = async () => {
-  // TODO: replace with check subscription function
-  const isPro = false;
+  const isPro = await checkSubscription();
 
   return (
     <div className="h-full space-y-2 p-4">

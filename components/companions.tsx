@@ -42,6 +42,8 @@ const Companions: FC<CompanionsProps> = ({ data }) => {
                     alt="companion"
                     fill
                     className="rounded-xl object-cover"
+                    priority
+                    sizes="(max-width: 768px) 128px, (max-width: 1200px) 128px"
                   />
                 </div>
                 <p className="font-bold">{item.name}</p>
