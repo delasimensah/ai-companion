@@ -41,7 +41,7 @@ export async function GET(_: Request) {
       {
         email: user.emailAddresses[0].emailAddress,
         amount: 999,
-        plan: "PLN_opglda89h6qnt95",
+        plan: "PLN_y2bhjj5onk53xsr",
       },
       {
         headers: {
