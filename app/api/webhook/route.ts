@@ -13,6 +13,8 @@ export async function POST(req: Request) {
 
   // event for when a subscription is created
   if (event.event === "subscription.create") {
+    console.log("subscription create event run");
+
     await prismadb.userSubscription.create({
       data: {
         paystackCustomerEmail: event.data.customer.email as string,
@@ -25,6 +27,8 @@ export async function POST(req: Request) {
 
   // events for each billing cycle
   if (event.event === "invoice.create") {
+    console.log("invoice create event run");
+
     await prismadb.userSubscription.update({
       where: {
         paystackSubscriptionCode: event.data.subscription
@@ -37,6 +41,8 @@ export async function POST(req: Request) {
   }
 
   if (event.event === "invoice.payment_failed") {
+    console.log("invoice payment failed event run");
+
     await prismadb.userSubscription.delete({
       where: {
         paystackSubscriptionCode: event.data.subscription
@@ -59,6 +65,8 @@ export async function POST(req: Request) {
 
   // events for when a subscription is cancelled
   if (event.event === "subscription.not_renew") {
+    console.log("subscription not renew event run");
+
     await prismadb.userSubscription.delete({
       where: {
         paystackSubscriptionCode: event.data.subscription_code as string,
@@ -67,6 +75,8 @@ export async function POST(req: Request) {
   }
 
   if (event.event === "subscription.disable") {
+    console.log("subscription disable event run");
+
     await prismadb.userSubscription.delete({
       where: {
         paystackSubscriptionCode: event.data.subscription_code as string,
