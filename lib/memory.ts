@@ -89,6 +89,7 @@ export class MemoryManager {
     }
 
     const key = this.generateRedisCompanionKey(companionKey);
+
     let result = await this.history.zrange(key, 0, Date.now(), {
       byScore: true,
     });
