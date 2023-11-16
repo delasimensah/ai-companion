@@ -11,6 +11,7 @@ export async function POST(req: Request) {
     return new NextResponse("No Signature", { status: 400 });
   }
 
+  // event for when a subscription is created
   if (event.event === "subscription.create") {
     await prismadb.userSubscription.create({
       data: {
@@ -22,7 +23,8 @@ export async function POST(req: Request) {
     });
   }
 
-  if (event.event === "invoice.update") {
+  // events for each billing cycle
+  if (event.event === "invoice.create") {
     await prismadb.userSubscription.update({
       where: {
         paystackSubscriptionCode: event.data.subscription
@@ -30,6 +32,44 @@ export async function POST(req: Request) {
       },
       data: {
         nextPaymentDate: new Date(event.data.subscription.next_payment_date),
+      },
+    });
+  }
+
+  if (event.event === "invoice.payment_failed") {
+    await prismadb.userSubscription.delete({
+      where: {
+        paystackSubscriptionCode: event.data.subscription
+          .subscription_code as string,
+      },
+    });
+  }
+
+  // if (event.event === "invoice.update") {
+  //   await prismadb.userSubscription.update({
+  //     where: {
+  //       paystackSubscriptionCode: event.data.subscription
+  //         .subscription_code as string,
+  //     },
+  //     data: {
+  //       nextPaymentDate: new Date(event.data.subscription.next_payment_date),
+  //     },
+  //   });
+  // }
+
+  // events for when a subscription is cancelled
+  if (event.event === "subscription.not_renew") {
+    await prismadb.userSubscription.delete({
+      where: {
+        paystackSubscriptionCode: event.data.subscription_code as string,
+      },
+    });
+  }
+
+  if (event.event === "subscription.disable") {
+    await prismadb.userSubscription.delete({
+      where: {
+        paystackSubscriptionCode: event.data.subscription_code as string,
       },
     });
   }
